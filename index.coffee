@@ -153,7 +153,7 @@ resetParts = (ids = [0..14]) ->
 		$('.kanji-part').eq(id).text(part).removeClass 'active'
 
 submit = ->
-	parts = $('.kanji-part.active').each(-> $(@).text()).toArray()
+	parts = $('.kanji-part.active').map(-> $(@).text()).toArray()
 
 	return if parts.length is 1
 
