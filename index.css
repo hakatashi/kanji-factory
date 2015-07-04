@@ -1,0 +1,67 @@
+.micro-clearfix {
+  zoom: 1;
+}
+.micro-clearfix:before,
+.micro-clearfix:after {
+  content: "";
+  display: table;
+}
+.micro-clearfix:after {
+  clear: both;
+}
+h1 {
+  text-align: center;
+}
+.generated-kanjies {
+  width: 640px;
+  height: 180px;
+  margin: 0 auto;
+  background-color: cornsilk;
+  font-size: 32px;
+}
+.kanji-parts {
+  width: 550px;
+  margin: 10px auto 0;
+  padding: 0;
+  zoom: 1;
+}
+.kanji-parts:before,
+.kanji-parts:after {
+  content: "";
+  display: table;
+}
+.kanji-parts:after {
+  clear: both;
+}
+.kanji-parts .kanji-part {
+  list-style: none;
+  margin: 0;
+  background-color: azure;
+  width: 100px;
+  height: 100px;
+  float: left;
+  border-radius: 20px;
+  text-align: center;
+  line-height: 100px;
+  margin: 5px;
+  font-size: 60px;
+  font-family: NotoSansBoldSubsetted;
+  cursor: pointer;
+}
+.kanji-parts .kanji-part.active {
+  background-color: darksalmon;
+}
+.go {
+  width: 240px;
+  margin: 10px auto 0;
+  background-color: darkcyan;
+  color: white;
+  text-align: center;
+  height: 60px;
+  border-radius: 10px;
+  line-height: 60px;
+  font-size: 32px;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+}
