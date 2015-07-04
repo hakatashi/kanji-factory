@@ -157,6 +157,8 @@ submit = ->
 	$('.kanji-part').each ->
 		parts.push $(@).text() if $(@).hasClass 'active'
 
+	return if parts.length is 1
+
 	partsSize = parts.length
 	hit = null
 	parts.sort()
