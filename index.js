@@ -129,7 +129,7 @@
 
   for (character in availableParts) {
     weight = availableParts[character];
-    totalWeight += Math.sqrt(weight);
+    totalWeight += Math.pow(weight, 0.7);
   }
 
   $.get('data.json', function(data) {
@@ -167,7 +167,7 @@
     level = randint(totalWeight);
     for (character in availableParts) {
       weight = availableParts[character];
-      level -= Math.sqrt(weight);
+      level -= Math.pow(weight, 0.7);
       if (level < 0) {
         return character;
       }
@@ -177,7 +177,7 @@
   resetParts = function(ids) {
     var i, id, len, part, results;
     if (ids == null) {
-      ids = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+      ids = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
     }
     results = [];
     for (i = 0, len = ids.length; i < len; i++) {
@@ -190,12 +190,9 @@
 
   submit = function() {
     var hit, parts, partsSize, ref, tokens;
-    parts = [];
-    $('.kanji-part').each(function() {
-      if ($(this).hasClass('active')) {
-        return parts.push($(this).text());
-      }
-    });
+    parts = $('.kanji-part.active').each(function() {
+      return $(this).text();
+    }).toArray();
     if (parts.length === 1) {
       return;
     }
@@ -218,7 +215,7 @@
     }
     if (hit !== null) {
       $('.generated-kanjies').append(hit);
-      return resetParts([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].filter(function(index) {
+      return resetParts([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].filter(function(index) {
         return $('.kanji-part').eq(index).hasClass('active');
       }));
     }
