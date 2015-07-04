@@ -102,7 +102,7 @@ availableParts =
 
 totalWeight = 0
 for character, weight of availableParts
-	totalWeight += Math.pow weight, 0.7
+	totalWeight += weight
 
 # Load database
 $.get 'data.json', (data) ->
@@ -113,6 +113,7 @@ $.get 'data.json', (data) ->
 		resetParts()
 		$('.kanji-part').click ->
 			$(@).toggleClass 'active'
+			checkCreativity()
 		$('.go').click ->
 			submit()
 
@@ -124,7 +125,7 @@ randint = (lower, upper) ->
 getRandomParts = ->
 	level = randint totalWeight
 	for character, weight of availableParts
-		level -= Math.pow weight, 0.7
+		level -= weight
 		return character if level < 0
 
 resetParts = (ids = [0..14]) ->
@@ -133,20 +134,26 @@ resetParts = (ids = [0..14]) ->
 		$('.kanji-part').eq(id).text(part).removeClass 'active'
 
 submit = ->
-	parts = $('.kanji-part.active').map(-> $(@).text()).toArray()
+	hit = checkCreativity()
 
-	return if parts.length is 1
+	if hit isnt null
+		$('.generated-kanjies').append hit
+		resetParts [0..15].filter (index) -> $('.kanji-part').eq(index).hasClass 'active'
+		$('.go').removeClass 'active'
+
+checkCreativity = ->
+	$('.go').removeClass 'active'
+
+	parts = $('.kanji-part.active').map(-> $(@).text()).toArray()
+	return if parts.length <= 1
 
 	partsSize = parts.length
-	hit = null
 	parts.sort()
 	for own character, tokens of window.data
 		if tokens.length isnt partsSize then continue
 
 		if (parts.every (part, index) -> tokens[index] is part)
-			hit = character
-			break
+			$('.go').addClass 'active'
+			return character
 
-	if hit isnt null
-		$('.generated-kanjies').append hit
-		resetParts [0..15].filter (index) -> $('.kanji-part').eq(index).hasClass 'active'
+	return null
