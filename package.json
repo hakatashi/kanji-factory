@@ -1,0 +1,34 @@
+{
+  "name": "kanji-maker",
+  "version": "0.0.1",
+  "description": "Make kanji all",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-watch": "^0.6.1",
+    "load-grunt-tasks": "^3.2.0",
+    "time-grunt": "^1.2.1"
+  },
+  "devDependencies": {
+    "grunt-contrib-coffee": "^0.13.0",
+    "grunt-contrib-jade": "^0.14.1",
+    "grunt-contrib-less": "^1.0.1"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hakatashi/kanji-maker.git"
+  },
+  "keywords": [
+    "kanji"
+  ],
+  "author": "hakatashi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hakatashi/kanji-maker/issues"
+  },
+  "homepage": "https://github.com/hakatashi/kanji-maker#readme"
+}
