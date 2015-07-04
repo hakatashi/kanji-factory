@@ -1,0 +1,8 @@
+
+@font-face {
+  font-family: 'NotoSansBoldSubsetted';
+  src: url('NotoSansBoldSubsetted.eot?#iefix') format('embedded-opentype'),  url('NotoSansBoldSubsetted.otf')  format('opentype'),
+	     url('NotoSansBoldSubsetted.woff') format('woff'), url('NotoSansBoldSubsetted.ttf')  format('truetype'), url('NotoSansBoldSubsetted.svg#NotoSansBoldSubsetted') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
