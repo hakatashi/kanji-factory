@@ -190,7 +190,7 @@
 
   submit = function() {
     var hit, parts, partsSize, ref, tokens;
-    parts = $('.kanji-part.active').each(function() {
+    parts = $('.kanji-part.active').map(function() {
       return $(this).text();
     }).toArray();
     if (parts.length === 1) {
