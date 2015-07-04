@@ -54,7 +54,7 @@ h1 {
 .go {
   width: 240px;
   margin: 10px auto 0;
-  background-color: darkcyan;
+  background-color: #a8e2e2;
   color: white;
   text-align: center;
   height: 60px;
@@ -64,4 +64,8 @@ h1 {
   text-transform: uppercase;
   font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.2s linear;
+}
+.go.active {
+  background-color: darkcyan;
 }

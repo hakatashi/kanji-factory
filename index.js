@@ -1,5 +1,5 @@
 (function() {
-  var availableParts, character, getRandomParts, randint, resetParts, submit, totalWeight, weight,
+  var availableParts, character, checkCreativity, getRandomParts, randint, resetParts, submit, totalWeight, weight,
     hasProp = {}.hasOwnProperty;
 
   availableParts = {
@@ -109,7 +109,7 @@
 
   for (character in availableParts) {
     weight = availableParts[character];
-    totalWeight += Math.pow(weight, 0.7);
+    totalWeight += weight;
   }
 
   $.get('data.json', function(data) {
@@ -123,7 +123,8 @@
     return $(document).ready(function() {
       resetParts();
       $('.kanji-part').click(function() {
-        return $(this).toggleClass('active');
+        $(this).toggleClass('active');
+        return checkCreativity();
       });
       return $('.go').click(function() {
         return submit();
@@ -147,7 +148,7 @@
     level = randint(totalWeight);
     for (character in availableParts) {
       weight = availableParts[character];
-      level -= Math.pow(weight, 0.7);
+      level -= weight;
       if (level < 0) {
         return character;
       }
@@ -169,15 +170,27 @@
   };
 
   submit = function() {
-    var hit, parts, partsSize, ref, tokens;
+    var hit;
+    hit = checkCreativity();
+    if (hit !== null) {
+      $('.generated-kanjies').append(hit);
+      resetParts([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].filter(function(index) {
+        return $('.kanji-part').eq(index).hasClass('active');
+      }));
+      return $('.go').removeClass('active');
+    }
+  };
+
+  checkCreativity = function() {
+    var parts, partsSize, ref, tokens;
+    $('.go').removeClass('active');
     parts = $('.kanji-part.active').map(function() {
       return $(this).text();
     }).toArray();
-    if (parts.length === 1) {
+    if (parts.length <= 1) {
       return;
     }
     partsSize = parts.length;
-    hit = null;
     parts.sort();
     ref = window.data;
     for (character in ref) {
@@ -189,16 +202,11 @@
       if (parts.every(function(part, index) {
         return tokens[index] === part;
       })) {
-        hit = character;
-        break;
+        $('.go').addClass('active');
+        return character;
       }
     }
-    if (hit !== null) {
-      $('.generated-kanjies').append(hit);
-      return resetParts([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].filter(function(index) {
-        return $('.kanji-part').eq(index).hasClass('active');
-      }));
-    }
+    return null;
   };
 
 }).call(this);
