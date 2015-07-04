@@ -6,16 +6,16 @@ module.exports = function (grunt) {
   grunt.initConfig({
     watch: {
       jade: {
-        files: '<%= jshint.gruntfile.src %>',
-        tasks: ['jshint:gruntfile']
+        files: '**/*.jade',
+        tasks: 'jade'
       },
       coffee: {
-        files: '<%= jshint.js.src %>',
-        tasks: ['jshint:js', 'mochacli']
+        files: '**/*.coffee',
+        tasks: 'coffee'
       },
       less: {
-        files: '<%= jshint.test.src %>',
-        tasks: ['jshint:test', 'mochacli']
+        files: '**/*.less',
+        tasks: 'less'
       }
     },
     jade: {
