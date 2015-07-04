@@ -122,7 +122,7 @@ availableParts =
 
 totalWeight = 0
 for character, weight of availableParts
-	totalWeight += Math.sqrt weight
+	totalWeight += Math.pow weight, 0.7
 
 # Load database
 $.get 'data.json', (data) ->
@@ -144,18 +144,16 @@ randint = (lower, upper) ->
 getRandomParts = ->
 	level = randint totalWeight
 	for character, weight of availableParts
-		level -= Math.sqrt weight
+		level -= Math.pow weight, 0.7
 		return character if level < 0
 
-resetParts = (ids = [0..9]) ->
+resetParts = (ids = [0..14]) ->
 	for id in ids
 		part = getRandomParts()
 		$('.kanji-part').eq(id).text(part).removeClass 'active'
 
 submit = ->
-	parts = []
-	$('.kanji-part').each ->
-		parts.push $(@).text() if $(@).hasClass 'active'
+	parts = $('.kanji-part.active').each(-> $(@).text()).toArray()
 
 	return if parts.length is 1
 
@@ -171,4 +169,4 @@ submit = ->
 
 	if hit isnt null
 		$('.generated-kanjies').append hit
-		resetParts [0..9].filter (index) -> $('.kanji-part').eq(index).hasClass 'active'
+		resetParts [0..15].filter (index) -> $('.kanji-part').eq(index).hasClass 'active'
