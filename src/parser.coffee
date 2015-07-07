@@ -9,9 +9,10 @@ targets = []
 IDSdir = "#{__dirname}/chise-ids"
 
 files = fs.readdirSync(IDSdir).filter (file) -> file.match /^IDS-.+\.txt$/
+files.push '../overload.txt'
 
 for file in files
-	process.stdout.write "Reading #{file}... "
+	process.stdout.write "Loading #{file}... "
 	data = fs.readFileSync(path.join IDSdir, file).toString()
 
 	lines = data.replace(/\r\n/g, '\n').split '\n'
@@ -21,7 +22,11 @@ for file in files
 		# Skip comment
 		continue if line[0] is ';'
 
-		[id, token, body] = line.split '\t'
+		if file is '../overload.txt'
+			[token, body] = line.split '\t'
+		else
+			[id, token, body] = line.split '\t'
+
 		if body isnt undefined and body isnt ''
 			try
 				dict[token] = parseIDS body
