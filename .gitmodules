@@ -1,0 +1,3 @@
+[submodule "src/chise-ids"]
+	path = src/chise-ids
+	url = https://github.com/mskala/chise-ids.git
