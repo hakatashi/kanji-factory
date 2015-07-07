@@ -13,7 +13,9 @@
   "devDependencies": {
     "grunt-contrib-coffee": "^0.13.0",
     "grunt-contrib-jade": "^0.14.1",
-    "grunt-contrib-less": "^1.0.1"
+    "grunt-contrib-less": "^1.0.1",
+    "string.fromcodepoint": "^0.2.1",
+    "string.prototype.codepointat": "^0.2.0"
   },
   "scripts": {
     "test": "grunt test",
