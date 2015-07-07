@@ -188,7 +188,7 @@
       return $(this).text();
     }).toArray();
     if (parts.length <= 1) {
-      return;
+      return null;
     }
     partsSize = parts.length;
     parts.sort();
