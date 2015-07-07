@@ -128,7 +128,7 @@ getRandomParts = ->
 		level -= weight
 		return character if level < 0
 
-resetParts = (ids = [0..14]) ->
+resetParts = (ids = [0...15]) ->
 	for id in ids
 		part = getRandomParts()
 		$('.kanji-part').eq(id).text(part).removeClass 'active'
@@ -138,7 +138,7 @@ submit = ->
 
 	if hit isnt null
 		$('.generated-kanjies').append hit
-		resetParts [0..15].filter (index) -> $('.kanji-part').eq(index).hasClass 'active'
+		resetParts [0...15].filter (index) -> $('.kanji-part').eq(index).hasClass 'active'
 		$('.go').removeClass 'active'
 
 checkCreativity = ->
