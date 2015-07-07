@@ -145,7 +145,8 @@ checkCreativity = ->
 	$('.go').removeClass 'active'
 
 	parts = $('.kanji-part.active').map(-> $(@).text()).toArray()
-	return if parts.length <= 1
+	if parts.length <= 1
+		return null
 
 	partsSize = parts.length
 	parts.sort()

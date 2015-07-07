@@ -16,7 +16,8 @@
     "grunt-contrib-less": "^1.0.1"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "pages": "git checkout gh-pages && git merge master && grunt && git commit -am \"Rebuild\" && git push origin HEAD && git checkout master"
   },
   "repository": {
     "type": "git",
