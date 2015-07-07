@@ -1,6 +1,7 @@
 fs = require 'fs'
 util = require 'util'
 path = require 'path'
+extend = require 'xtend'
 parseIDS = require './parseIDS'
 
 # Tokens dictionary
@@ -45,12 +46,16 @@ resolved = {}
 
 for target in targets
 	resolveTokens = (AST) ->
+		AST = extend true, {}, AST
 		switch AST.type
 			when 'character'
 				if not dict[AST.text]?
 					# Nope
-				else if dict[AST.text]?.type is 'character' and dict[AST.text]?.text is AST.text
-					# Nope
+				else if dict[AST.text]?.type is 'character'
+					if dict[AST.text]?.text is AST.text
+						# Nope
+					else
+						AST = dict[AST.text]
 				else
 					[AST, AST.text] = [resolveTokens(dict[AST.text]), AST.text]
 			when 'combine'
