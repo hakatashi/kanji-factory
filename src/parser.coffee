@@ -15,6 +15,7 @@ for file in files
 
 	lines = data.replace(/\r\n/g, '\n').split '\n'
 	tokenCount = 0
+	errorCount = 0
 	for line in lines
 		# Skip comment
 		continue if line[0] is ';'
@@ -28,8 +29,9 @@ for file in files
 					targets.push token
 			catch error
 				# console.error "Errored in parsing \"#{line}\"\n#{error}"
+				errorCount++
 
-	process.stdout.write "#{tokenCount} tokens imported.\n"
+	process.stdout.write "#{tokenCount} tokens imported. #{errorCount} errors.\n"
 
 resolved = {}
 
