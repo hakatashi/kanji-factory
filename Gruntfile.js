@@ -6,15 +6,15 @@ module.exports = function (grunt) {
   grunt.initConfig({
     watch: {
       jade: {
-        files: '**/*.jade',
+        files: '{,*/}*.jade',
         tasks: 'jade'
       },
       coffee: {
-        files: '**/*.coffee',
+        files: '{,*/}*.coffee',
         tasks: 'coffee'
       },
       less: {
-        files: '**/*.less',
+        files: '{,*/}*.less',
         tasks: 'less'
       }
     },
@@ -23,7 +23,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '.',
-          src: ['**/*.jade', '!node_modules/**/*'],
+          src: ['{,*/}*.jade'],
           dest: '.',
           ext: '.html'
         }],
@@ -34,7 +34,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '.',
-          src: ['**/*.coffee', '!node_modules/**/*'],
+          src: ['{,*/}*.coffee'],
           dest: '.',
           ext: '.js'
         }],
@@ -45,7 +45,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '.',
-          src: ['**/*.less', '!node_modules/**/*'],
+          src: ['{,*/}*.less'],
           dest: '.',
           ext: '.css'
         }],
