@@ -73,6 +73,38 @@ fs.writeFileSync "#{__dirname}/resolved.json", JSON.stringify resolved
 
 process.stdout.write 'done.\n'
 
+process.stdout.write 'Flattening data... '
+
+flattened = {}
+
+for token, AST of resolved
+	flatten = (AST) ->
+		switch AST.type
+			when 'character'
+				return AST.text
+			when 'combine'
+				ret = [AST.text]
+				for component in AST.components
+					result = flatten component
+					if typeof result is 'object' and result[0] is undefined
+						ret = ret.concat result[1..]
+					else
+						ret.push result
+				return ret
+
+	flattened[token] = flatten AST
+	if typeof flattened[token] is 'object'
+		flattened[token][0] = token
+
+process.stdout.write 'done.\n'
+
+process.stdout.write 'Writing flattened.json... '
+
+fs.writeFileSync "#{__dirname}/flattened.json", JSON.stringify flattened
+fs.writeFileSync "#{__dirname}/flattened.max.js", util.inspect flattened, depth: null
+
+process.stdout.write 'done.\n'
+
 process.stdout.write 'Serializing dependencies... '
 
 serialized = {}
@@ -84,6 +116,8 @@ for token, AST of resolved
 			when 'character'
 				ret.push AST.text
 			when 'combine'
+				if AST.text
+					ret.push AST.text
 				for component in AST.components
 					ret = ret.concat serialize component
 		return ret
@@ -98,3 +132,30 @@ fs.writeFileSync "#{__dirname}/serialized.json", JSON.stringify serialized
 fs.writeFileSync "#{__dirname}/serialized.max.js", util.inspect serialized
 
 process.stdout.write 'done.\n'
+
+process.stdout.write 'Taking stats... '
+
+stats = {}
+
+for token, parts of serialized
+	for part in parts
+		stats[part] ?= 0
+		stats[part]++
+
+statsArray = ([part, count] for part, count of stats)
+statsArray.sort (a, b) -> b[1] - a[1]
+
+newStats = {}
+
+for [part, count] in statsArray
+	newStats[part] = count
+
+process.stdout.write 'done.\n'
+
+process.stdout.write 'Writing stats... '
+
+fs.writeFileSync "#{__dirname}/stats.max.js", util.inspect newStats
+
+process.stdout.write 'done.\n'
+
+process.stdout.write "Process succeeded. Memory usage: #{process.memoryUsage().rss / 1024 / 1024} MiB"
