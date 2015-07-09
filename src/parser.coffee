@@ -9,6 +9,10 @@ dict = {}
 targets = []
 IDSdir = "#{__dirname}/chise-ids"
 
+# Parse opotions
+options = {}
+options.all = '--all' in process.argv
+
 files = fs.readdirSync(IDSdir).filter (file) -> file.match /^IDS-.+\.txt$/
 files.push '../overload.txt'
 
@@ -67,11 +71,12 @@ for target in targets
 
 process.stdout.write 'done.\n'
 
-process.stdout.write 'Writing resolved.json... '
+if options.all
+	process.stdout.write 'Writing resolved.json... '
 
-fs.writeFileSync "#{__dirname}/resolved.json", JSON.stringify resolved
+	fs.writeFileSync "#{__dirname}/resolved.json", JSON.stringify resolved
 
-process.stdout.write 'done.\n'
+	process.stdout.write 'done.\n'
 
 process.stdout.write 'Flattening data... '
 
@@ -98,10 +103,17 @@ for token, AST of resolved
 
 process.stdout.write 'done.\n'
 
-process.stdout.write 'Writing flattened.json... '
+if options.all
+	process.stdout.write 'Writing flattened.json... '
 
-fs.writeFileSync "#{__dirname}/flattened.json", JSON.stringify flattened
-fs.writeFileSync "#{__dirname}/flattened.max.js", util.inspect flattened, depth: null
+	fs.writeFileSync "#{__dirname}/flattened.json", JSON.stringify flattened
+	fs.writeFileSync "#{__dirname}/flattened.max.js", util.inspect flattened, depth: null
+
+	process.stdout.write 'done.\n'
+
+process.stdout.write 'Writing data.json... '
+
+fs.writeFileSync "#{__dirname}/data.json", JSON.stringify flattened
 
 process.stdout.write 'done.\n'
 
@@ -126,12 +138,13 @@ for token, AST of resolved
 
 process.stdout.write 'done.\n'
 
-process.stdout.write 'Writing serialized.json... '
+if options.all
+	process.stdout.write 'Writing serialized.json... '
 
-fs.writeFileSync "#{__dirname}/serialized.json", JSON.stringify serialized
-fs.writeFileSync "#{__dirname}/serialized.max.js", util.inspect serialized
+	fs.writeFileSync "#{__dirname}/serialized.json", JSON.stringify serialized
+	fs.writeFileSync "#{__dirname}/serialized.max.js", util.inspect serialized
 
-process.stdout.write 'done.\n'
+	process.stdout.write 'done.\n'
 
 process.stdout.write 'Taking stats... '
 
@@ -152,10 +165,30 @@ for [part, count] in statsArray
 
 process.stdout.write 'done.\n'
 
-process.stdout.write 'Writing stats... '
+if options.all
+	process.stdout.write 'Writing stats... '
 
-fs.writeFileSync "#{__dirname}/stats.max.js", util.inspect newStats
+	fs.writeFileSync "#{__dirname}/stats.max.js", util.inspect newStats
+
+	process.stdout.write 'done.\n'
+
+process.stdout.write 'Writing parts.json... '
+
+excludes = [
+	# Parts onlly used in simplified chinese
+	'钅', '贝', '纟', '讠', '鱼', '车', '鸟', '门', '马', '页'
+	# Too subdevided parts
+	'丨', '𠃊',
+]
+availableParts = {}
+
+for [part, count] in statsArray
+	if part not in excludes and part[0] isnt '&'
+		availableParts[part] = count
+		break if Object.keys(availableParts).length is 200
+
+fs.writeFileSync "#{__dirname}/parts.json", JSON.stringify availableParts
 
 process.stdout.write 'done.\n'
 
-process.stdout.write "Process succeeded. Memory usage: #{process.memoryUsage().rss / 1024 / 1024} MiB"
+process.stdout.write "Build succeeded. Memory usage: #{process.memoryUsage().rss / 1024 / 1024} MiB\n"
