@@ -13,6 +13,8 @@ IDSdir = "#{__dirname}/chise-ids"
 options = {}
 options.all = '--all' in process.argv
 
+### hoge ### 
+
 files = fs.readdirSync(IDSdir).filter (file) -> file.match /^IDS-.+\.txt$/
 files.push '../overload.txt'
 

@@ -29,15 +29,24 @@ module.exports = function (grunt) {
         }],
       }
     },
-    coffee: {
+    browserify: {
       build: {
-        files: [{
-          expand: true,
-          cwd: '.',
-          src: ['{,*/}*.coffee'],
-          dest: '.',
-          ext: '.js'
-        }],
+        files: {
+          'index.js': ['index.coffee']
+        },
+        options: {
+          transform: ['coffeeify']
+        }
+      }
+    },
+    uglify: {
+      build: {
+        files: {
+          'index.min.js': ['index.js']
+        },
+        options: {
+          report: 'min'
+        }
       }
     },
     less: {
@@ -54,5 +63,5 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('default', ['build']);
-  grunt.registerTask('build', ['jade', 'coffee', 'less']);
+  grunt.registerTask('build', ['jade', 'browserify', 'uglify', 'less']);
 };
