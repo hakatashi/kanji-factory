@@ -4,18 +4,18 @@
   "description": "Make kanji all",
   "main": "Gruntfile.js",
   "dependencies": {
-    "grunt": "^0.4.5",
-    "grunt-cli": "^0.1.13",
-    "grunt-contrib-watch": "^0.6.1",
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-watch": "^1.0.0",
     "load-grunt-tasks": "^3.2.0",
     "time-grunt": "^1.2.1"
   },
   "devDependencies": {
-    "coffeeify": "^1.1.0",
-    "grunt-browserify": "^3.8.0",
-    "grunt-contrib-jade": "^0.14.1",
+    "coffeeify": "^2.1.0",
+    "grunt-browserify": "^5.0.0",
+    "grunt-contrib-jade": "^1.0.0",
     "grunt-contrib-less": "^1.0.1",
-    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-contrib-uglify": "^2.0.0",
     "string.fromcodepoint": "^0.2.1",
     "string.prototype.codepointat": "^0.2.0",
     "xtend": "^4.0.0"
