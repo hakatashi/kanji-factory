@@ -9,41 +9,103 @@
 	zoom:1;
 }
 
+@keyframes test {
+	to {
+		background-position: 100% 100%;
+	}
+}
+
+body {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+
+	background-image: url(http://cdn.backgroundhost.com/backgrounds/subtlepatterns/arab_tile.png);
+	background-position: 0 0;
+	animation: test 100s linear 0s infinite normal;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
 h1 {
 	text-align: center;
+	margin: 0;
 }
 
 .generated-kanjies {
-	width: 640px;
-	height: 180px;
+	.micro-clearfix;
+
+	width: 100%;
 	margin: 0 auto;
 	background-color: cornsilk;
 	font-size: 32px;
+
+	.generated-kanji {
+		display: block;
+		width: 25%;
+		height: 60px;
+		line-height: 60px;
+		float: left;
+		text-align: center;
+
+		background-color: white;
+
+		&:nth-child(even) {
+			background-color: #EEE;
+		}
+	}
+}
+
+.score {
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	font-family: 'museo', sans-serif;
+	font-size: 12vw;
 }
 
 .kanji-parts {
-	width: 550px;
-	margin: 10px auto 0;
-	padding: 0;
+	width: 100%;
 	.micro-clearfix;
 
-	.kanji-part {
-		list-style: none;
+	.kanji-part-wrapper {
 		margin: 0;
-		background-color: azure;
-		width: 100px;
-		height: 100px;
+		width: 25%;
+		height: 0;
+		padding-bottom: 25%;
+		list-style: none;
+
 		float: left;
-		border-radius: 20px;
-		text-align: center;
-		line-height: 100px;
-		margin: 5px;
-		font-size: 60px;
-		font-family: NotoSansBoldSubsetted;
-		cursor: pointer;
 
 		&.active {
 			background-color: darksalmon;
+		}
+
+		.kanji-part {
+			@margin: 3%;
+			@border: 2%;
+
+			margin: @margin;
+			width: 100% - @margin * 2 - @border * 2;
+			height: 0;
+
+			padding-bottom: 100% - @margin * 2 - @border * 2;
+
+			background-color: white;
+			border-radius: 50%;
+
+			box-sizing: border-box;
+			border: @border #7F99FF solid;
+
+			font-size: 60px;
+			font-family: NotoSansBoldSubsetted;
+			cursor: pointer;
+
+			text-align: center;
 		}
 	}
 }

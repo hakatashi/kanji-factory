@@ -5,6 +5,9 @@ module.exports = function (grunt) {
 
   grunt.initConfig({
     watch: {
+      options: {
+        livereload: true
+      },
       jade: {
         files: '{,*/}*.jade',
         tasks: 'jade'

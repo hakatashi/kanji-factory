@@ -2,16 +2,34 @@ doctype
 html
 	head
 		title 漢字メーカー
+		meta(chharset='utf-8')
+		meta(name='viewport', content='width=device-width,initial-scale=1')
+		link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css')
 		link(rel='stylesheet', href='font/NotoSansBoldSubsetted/styles.css')
 		link(rel='stylesheet', href='index.css')
 		script(src='https://code.jquery.com/jquery-1.11.3.min.js')
+		script(src='https://use.typekit.net/gkw2bdo.js')
+		script.
+			try {
+				Typekit.load({
+					async: true
+				});
+			} catch (e) {}
 		script(src='index.js')
+		script(src='//localhost:35729/livereload.js')
 	body
-		h1 漢字メーカー <small>beta</small>
+		h1 漢字ファクトリー
 		.generated-kanjies
+			- i = 0
+			while i < 8
+				li.generated-kanji 神
+				- i++
+		.score 1234
 		ul.kanji-parts
-			- var i = 0
-			while i < 15
-				li.kanji-part
+			- i = 0
+			while i < 16
+				li.kanji-part-wrapper
+					.kanji-part
 				- i++
 		.go go
+		.skip skip
